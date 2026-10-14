@@ -41,7 +41,7 @@ export function WhyUs() {
         <figure data-reveal className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
           <div className="aspect-[4/5] overflow-hidden rounded-[2rem] ring-1 ring-white/10">
             <img
-              src={media('canada-stairs.webp')}
+              src={media('obra-salon.webp')}
               alt={t.why.imageAlt}
               loading="lazy"
               className="size-full object-cover"

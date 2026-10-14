@@ -91,7 +91,7 @@ const es = {
       { title: 'Protección y limpieza', text: 'Cubrimos suelos, muebles y ventanas, y lo dejamos todo recogido.' },
       { title: 'Trato cercano', text: 'Comunicación clara de principio a fin, en español o en inglés.' },
     ],
-    imageAlt: 'Pintor de G&C aplicando pintura con pistola en una escalera, con suelos y ventanas protegidos',
+    imageAlt: 'Salón con suelo y ventanales totalmente protegidos con plástico antes de pintar',
     imageCaption: 'Todo protegido antes de empezar',
   },
   story: {
@@ -107,11 +107,11 @@ const es = {
       { value: 'CA → ES', label: 'método norteamericano' },
       { value: '0 €', label: 'presupuesto sin compromiso' },
     ],
-    galleryTitle: 'Proyectos en Canadá',
+    galleryTitle: 'Así protegemos cada obra',
     gallery: {
-      'canada-spray': 'Pintura de techos y paredes con pistola en una vivienda de planta abierta',
-      'canada-living': 'Salón con ventanales protegidos tras la pintura',
-      'canada-hallway': 'Pasillo terminado en blanco',
+      'obra-pasillo': 'Pasillo recién pintado con el suelo cubierto y las puertas protegidas',
+      'obra-habitacion': 'Habitación pintada con suelo y ventana protegidos',
+      'obra-ventana': 'Ventana cubierta con plástico y cinta antes de pintar',
     },
   },
   process: {
@@ -283,7 +283,7 @@ const en: Dictionary = {
       { title: 'Protection & clean-up', text: 'Floors, furniture and windows are covered, and we leave everything tidy.' },
       { title: 'Personal service', text: 'Clear communication from start to finish, in English or Spanish.' },
     ],
-    imageAlt: 'G&C painter spray-painting a staircase, with floors and windows fully protected',
+    imageAlt: 'Living room with floor and windows fully wrapped in plastic before painting',
     imageCaption: 'Everything protected before we start',
   },
   story: {
@@ -299,11 +299,11 @@ const en: Dictionary = {
       { value: 'CA → ES', label: 'North American method' },
       { value: '€0', label: 'no-obligation quote' },
     ],
-    galleryTitle: 'Projects in Canada',
+    galleryTitle: 'How we protect every job',
     gallery: {
-      'canada-spray': 'Spray-painting ceilings and walls in an open-plan home',
-      'canada-living': 'Living room with protected windows after painting',
-      'canada-hallway': 'Hallway finished in white',
+      'obra-pasillo': 'Freshly painted hallway with the floor covered and doors protected',
+      'obra-habitacion': 'Painted bedroom with floor and window protected',
+      'obra-ventana': 'Window covered with plastic and tape before painting',
     },
   },
   process: {

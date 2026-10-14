@@ -2,7 +2,7 @@ import { Quote } from 'lucide-react'
 import { useLanguage } from '@/i18n/language'
 import { media } from '@/lib/utils'
 
-const GALLERY = ['canada-spray', 'canada-living', 'canada-hallway'] as const
+const GALLERY = ['obra-pasillo', 'obra-habitacion', 'obra-ventana'] as const
 
 export function Story() {
   const { t } = useLanguage()
@@ -45,7 +45,7 @@ export function Story() {
 
         <div className="lg:col-span-6">
           <p data-reveal className="mb-4 text-sm font-medium text-muted-foreground">
-            {t.story.galleryTitle} 🇨🇦
+            {t.story.galleryTitle}
           </p>
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             {GALLERY.map((name, i) => (

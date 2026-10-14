@@ -5,9 +5,9 @@ import type { ServiceKey } from '@/i18n/translations'
 import { media } from '@/lib/utils'
 
 export const SERVICES: { key: ServiceKey; icon: LucideIcon; image: string }[] = [
-  { key: 'homes', icon: PaintRoller, image: 'canada-room.webp' },
+  { key: 'homes', icon: PaintRoller, image: 'obra-estancia.webp' },
   { key: 'rentals', icon: TreePalm, image: 'hero-poster.webp' },
-  { key: 'agencies', icon: KeyRound, image: 'canada-hallway.webp' },
+  { key: 'agencies', icon: KeyRound, image: 'obra-pasillo-blanco.webp' },
   { key: 'prep', icon: Layers, image: 'wall-repair.webp' },
 ]
 
