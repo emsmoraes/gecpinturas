@@ -43,7 +43,10 @@ export function WhyUs() {
             <img
               src={media('obra-salon.webp')}
               alt={t.why.imageAlt}
+              width={960}
+              height={1280}
               loading="lazy"
+              decoding="async"
               className="size-full object-cover"
             />
           </div>

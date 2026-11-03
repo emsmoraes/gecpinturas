@@ -1,13 +1,19 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { LanguageProvider } from './i18n/language'
+import { langFromPath } from './lib/site'
 
-createRoot(document.getElementById('root')!).render(
+const root = document.getElementById('root')!
+const app = (
   <StrictMode>
-    <LanguageProvider>
+    <LanguageProvider initialLang={langFromPath(window.location.pathname)}>
       <App />
     </LanguageProvider>
-  </StrictMode>,
+  </StrictMode>
 )
+
+// En producción el HTML viene prerenderizado (scripts/prerender.mjs); en desarrollo se monta desde cero.
+if (root.firstElementChild) hydrateRoot(root, app)
+else createRoot(root).render(app)

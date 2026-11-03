@@ -1,44 +1,36 @@
 import { createContext, use, useEffect, useState, type ReactNode } from 'react'
+import { langPath } from '@/lib/site'
 import { dictionaries, type Dictionary, type Lang } from './translations'
 
-const STORAGE_KEY = 'gc-lang'
-
-function detectLang(): Lang {
-  const fromUrl = new URLSearchParams(window.location.search).get('lang')
-  if (fromUrl === 'es' || fromUrl === 'en') return fromUrl
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored === 'es' || stored === 'en') return stored
-  } catch {
-    // almacenamiento no disponible
-  }
-  return navigator.language?.toLowerCase().startsWith('en') ? 'en' : 'es'
-}
+export const STORAGE_KEY = 'gc-lang'
 
 type LanguageContextValue = { lang: Lang; t: Dictionary; setLang: (lang: Lang) => void }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>(detectLang)
+/**
+ * El idioma lo decide la URL (`/` español, `/en/` inglés) para que el HTML prerenderizado,
+ * los buscadores y la app coincidan. La preferencia guardada solo redirige desde `/` (ver index.html).
+ */
+export function LanguageProvider({ initialLang, children }: { initialLang: Lang; children: ReactNode }) {
+  const [lang, setLangState] = useState<Lang>(initialLang)
   const t = dictionaries[lang]
 
   useEffect(() => {
     document.documentElement.lang = lang
     document.title = t.meta.title
     document.querySelector('meta[name="description"]')?.setAttribute('content', t.meta.description)
+  }, [lang, t])
 
-    const url = new URL(window.location.href)
-    if (lang === 'es') url.searchParams.delete('lang')
-    else url.searchParams.set('lang', lang)
-    window.history.replaceState(null, '', url)
-
+  const setLang = (next: Lang) => {
+    setLangState(next)
+    window.history.replaceState(null, '', `${langPath(next)}${window.location.hash}`)
     try {
-      localStorage.setItem(STORAGE_KEY, lang)
+      localStorage.setItem(STORAGE_KEY, next)
     } catch {
       // almacenamiento no disponible
     }
-  }, [lang, t])
+  }
 
   return <LanguageContext value={{ lang, t, setLang }}>{children}</LanguageContext>
 }

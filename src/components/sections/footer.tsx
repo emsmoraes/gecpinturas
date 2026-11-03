@@ -59,7 +59,8 @@ export function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="container-page flex items-center justify-between gap-4 py-6 text-xs text-muted-foreground">
-          <p>
+          {/* El año del HTML prerenderizado puede quedar atrás del cliente en Año Nuevo */}
+          <p suppressHydrationWarning>
             © {year} G&amp;C Pinturas. {t.footer.rights}
           </p>
           <a href="#inicio" className="inline-flex items-center gap-1.5 font-medium hover:text-ink">

@@ -27,7 +27,7 @@ export function Story() {
               <p key={p.slice(0, 24)}>{p}</p>
             ))}
             <p className="flex items-center gap-3 pt-2 font-heading text-base font-semibold text-ink">
-              <img src={media('logo-mark.png')} alt="" className="size-8" />
+              <img src={media('logo-mark.webp')} alt="" width={32} height={32} loading="lazy" className="size-8" />
               {t.story.signature}
             </p>
           </div>
@@ -58,7 +58,10 @@ export function Story() {
                 <img
                   src={media(`${name}.webp`)}
                   alt={t.story.gallery[name]}
+                  width={960}
+                  height={1280}
                   loading="lazy"
+                  decoding="async"
                   className={`w-full rounded-[1.5rem] object-cover ${i === 0 ? 'h-full' : 'aspect-[4/3.6]'}`}
                 />
               </figure>

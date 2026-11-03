@@ -10,10 +10,18 @@ export function Hero() {
   const { t, lang } = useLanguage()
   const videoRef = useRef<HTMLVideoElement>(null)
 
+  // El vídeo se descarga cuando la página ya ha cargado, para no competir con lo crítico (el póster cubre mientras)
   useEffect(() => {
     const video = videoRef.current
-    if (!video || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    video.play().catch(() => {})
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData
+    if (!video || saveData || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const start = () => video.play().catch(() => {})
+    if (document.readyState === 'complete') {
+      start()
+      return
+    }
+    window.addEventListener('load', start, { once: true })
+    return () => window.removeEventListener('load', start)
   }, [])
 
   return (
@@ -27,7 +35,7 @@ export function Hero() {
 
       <div className="container-page grid items-center gap-12 pt-10 pb-16 sm:pt-14 lg:grid-cols-12 lg:gap-10 lg:pt-16 lg:pb-24">
         <div className="lg:col-span-7">
-          <p data-reveal className="eyebrow">
+          <p className="animate-reveal eyebrow">
             <span className="relative flex size-2">
               <span className="animate-ping-soft absolute inset-0 rounded-full bg-brand" />
               <span className="relative size-2 rounded-full bg-brand" />
@@ -36,9 +44,8 @@ export function Hero() {
           </p>
 
           <h1
-            data-reveal
             style={{ '--reveal-delay': '80ms' } as React.CSSProperties}
-            className="mt-6 text-[2.75rem] leading-[1] font-extrabold tracking-[-0.045em] text-ink sm:text-[4.1rem] lg:text-[3.9rem] xl:text-[4.4rem]"
+            className="animate-reveal mt-6 text-[2.75rem] leading-[1] font-extrabold tracking-[-0.045em] text-ink sm:text-[4.1rem] lg:text-[3.9rem] xl:text-[4.4rem]"
           >
             <span className="block">
             {t.hero.titleA}{' '}
@@ -51,17 +58,15 @@ export function Hero() {
           </h1>
 
           <p
-            data-reveal
             style={{ '--reveal-delay': '160ms' } as React.CSSProperties}
-            className="mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
+            className="animate-reveal mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl"
           >
             {t.hero.text}
           </p>
 
           <div
-            data-reveal
             style={{ '--reveal-delay': '240ms' } as React.CSSProperties}
-            className="mt-9 flex flex-col gap-3 sm:flex-row"
+            className="animate-reveal mt-9 flex flex-col gap-3 sm:flex-row"
           >
             <Button variant="brand" size="xl" className="h-14 px-7 text-base" nativeButton={false} render={<a href="#contacto" />}>
               {t.cta.quote}
@@ -80,9 +85,8 @@ export function Hero() {
           </div>
 
           <ul
-            data-reveal
             style={{ '--reveal-delay': '320ms' } as React.CSSProperties}
-            className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/75"
+            className="animate-reveal mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-ink/75"
           >
             {t.hero.trust.map(item => (
               <li key={item} className="flex items-center gap-2">
@@ -96,9 +100,8 @@ export function Hero() {
         </div>
 
         <div
-          data-reveal
           style={{ '--reveal-delay': '200ms' } as React.CSSProperties}
-          className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none"
+          className="animate-reveal relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none"
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-sand shadow-[0_40px_80px_-30px] shadow-ink/35 ring-1 ring-ink/5 lg:aspect-[4/5.4]">
             <video
@@ -109,7 +112,9 @@ export function Hero() {
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
+              width={576}
+              height={1024}
               aria-hidden="true"
             />
             <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/55 to-transparent" />

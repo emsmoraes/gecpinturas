@@ -189,6 +189,14 @@
   translate: 0 0;
 }
 
+/* Entrada del hero solo con CSS: arranca en el primer pintado, sin esperar a la hidratación */
+@keyframes reveal-in {
+  from { opacity: 0; translate: 0 1.5rem; }
+}
+.animate-reveal {
+  animation: reveal-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms) both;
+}
+
 /* Trazo de pincel que se pinta al aparecer */
 .brush-stroke path {
   stroke-dasharray: 1;
@@ -214,6 +222,7 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   [data-reveal] { opacity: 1; translate: none; transition: none; }
+  .animate-reveal { animation: none; }
   .brush-stroke path { animation: none; stroke-dashoffset: 0; }
   .animate-float, .animate-ping-soft { animation: none; }
 }
